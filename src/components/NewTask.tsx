@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function ewTask({
+export default function NewTask({
   onAddTask,
 }: {
   onAddTask: (label: string, description: string) => void;
