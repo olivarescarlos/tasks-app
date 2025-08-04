@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function newTask({
+export default function ewTask({
   onAddTask,
 }: {
   onAddTask: (label: string, description: string) => void;
@@ -23,14 +23,14 @@ export default function newTask({
   function handleOpen() {
     setIsAddTaskOpen((p) => !p);
   }
-  function handleChange(event: any) {
+  function handleChange(event: 	React.ChangeEvent<HTMLInputElement>) {
     setTaskLabel(event.target.value);
   }
-  function handleChangeDescription(event: any) {
+  function handleChangeDescription(event: 	React.ChangeEvent<HTMLInputElement>) {
     setTaskDescription(event.target.value);
   }
-  function handleChangeCategory(event:any){
-    setType(event.target.value)
+  function handleChangeCategory(event:React.ChangeEvent<HTMLSelectElement>){    
+    setType(Number(event.target.value))
   }
   return (
     <>
