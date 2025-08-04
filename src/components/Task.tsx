@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { FaPencilAlt, FaRegTrashAlt, FaCheck } from "react-icons/fa";
 import TaskButtons from "./TaskButtons";
-import CustomButton from "./CustomButton";
 import type { Task } from "@/lib/api/useTasks";
 
 export default function Task({
