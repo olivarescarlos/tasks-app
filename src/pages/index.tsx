@@ -1,31 +1,34 @@
 import { useState, useRef, useEffect } from "react";
 import NewTask from "@/components/NewTask";
 import Task from "@/components/Task";
-import { useTasks, useAddTask } from "@/lib/api/useTasks";
+import { useTasks, useAddTask,useDeleteTask } from "@/lib/api/useTasks";
 
 export default function Home() {
   const message = "Hello world! :)";
   const { data, error, isLoading } = useTasks();
   const { mutate: addTask } = useAddTask();
+  const {mutate:deleteTaskMutation} = useDeleteTask();
   const [tasks, setTasks] = useState(data);
   const dragItem = useRef(0);
   const dragOverItem = useRef(0);
   useEffect(() => setTasks(data), [data]);
 
-  function handleSaveTask(label: string, description: string) {
+  function handleSaveTask(label: string, description: string,type:number) {
     const newTask = {
       id: 0,
       description,
       is_complete: false,
       title: label,
-      type: 1,
+      type,
     };
     setTasks((p) => [...(p ?? []), newTask]);
 
     addTask(newTask);
   }
-  function deleteTask(deletedLabel: string) {
-    setTasks((p) => p?.filter((task) => task.title !== deletedLabel));
+
+  function deleteTask(taskId: number) {
+    setTasks((p) => p?.filter((task) => task.id !== taskId));
+    deleteTaskMutation(taskId);
   }
   function dragStart(position: number) {
     dragItem.current = position;
@@ -55,7 +58,7 @@ export default function Home() {
       <div className="flex flex-row">
         <NewTask onAddTask={handleSaveTask}></NewTask>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap">
         {isLoading ? (
           <div>loading...</div>
         ) : error ? (
@@ -74,7 +77,7 @@ export default function Home() {
         )}
         
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap elements-left">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap elements-left">
           <h3>Completed tasks</h3>
           {completedTasks?.map((task, index) => (
             <Task

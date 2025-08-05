@@ -2,7 +2,7 @@ import { useState } from "react";
 export default function NewTask({
   onAddTask,
 }: {
-  onAddTask: (label: string, description: string) => void;
+  onAddTask: (label: string, description: string,type:number) => void;
 }) {
   const [taskLabel, setTaskLabel] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -16,7 +16,7 @@ export default function NewTask({
   }
   function handleSave() {
     setIsAddTaskOpen((p) => !p);
-    onAddTask(taskLabel, taskDescription);
+    onAddTask(taskLabel, taskDescription,type);
     setTaskLabel("");
     setTaskDescription("");
   }
@@ -36,8 +36,8 @@ export default function NewTask({
     <>
       {isAddTaskOpen ? (
         <div className="rounded-md bg-vibe-green m-2 p-2">
-          <div>
-            <label className="m-2 p-2 font-semibold">Label:</label>
+          <div className="flex justify-between">
+            <label className="m-2 p-2 font-semibold">Titulo:</label>
             <input
               id="taskLabel"
               className="m-2 p-2 rounded-md bg-white"
@@ -46,8 +46,8 @@ export default function NewTask({
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div>
-            <label className="m-2 -p2 font-semibold">Description:</label>
+          <div className="flex justify-between">
+            <label className="m-2 -p2 font-semibold">Descripción:</label>
             <input
               id="taskDescription"
               className="m-2 p-2 rounded-md bg-white"
@@ -56,7 +56,8 @@ export default function NewTask({
               onChange={(e) => handleChangeDescription(e)}
             />
           </div>
-          <div>
+          <div className="flex justify-between">
+            <label className="m-2 -p2 font-semibold">Tipo:</label>
             <select className="m-2 p-2 rounded-md bg-white" onChange={(e)=>handleChangeCategory(e)}>
               <option value={1}>Unico</option>
               <option value={2}>Diario</option>
@@ -65,7 +66,7 @@ export default function NewTask({
               <option value={5}>Anual</option>
             </select>
           </div>
-          <div>
+          <div className="mt-2 flex justify-between">
             <button
               className="bg-button rounded-md mx-2 px-2"
               onClick={handleCancel}
@@ -82,7 +83,7 @@ export default function NewTask({
         </div>
       ) : (
         <button
-          className="text-left m-2 p-2 bg-vibe-green rounded-md "
+          className="text-left m-2 p-4 bg-vibe-green rounded-md"
           onClick={handleOpen}
         >
           Add task

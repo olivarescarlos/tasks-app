@@ -12,7 +12,7 @@ export default function Task({
 }: {
   key: number;
   task: Task;
-  onDelete: (t: string) => void;
+  onDelete: (id: number) => void;
   handleDragStart: (index: number) => void;
   handleDragEnter: (index: number) => void;
   handleDragEnd: () => void;
@@ -21,7 +21,7 @@ export default function Task({
   const hasRepetitions = true;
   function handleEditTask() {}
   function handleDeleteTask() {
-    onDelete(task.title);
+    onDelete(task.id);
   }
   function handleCompleteTask() {
     setIsCompleted(true);
@@ -51,11 +51,11 @@ export default function Task({
           </div>
         )} */}
         <TaskButtons
-          className="absolute top-8/12 left-15/20 md:left-12/20 xl:left-11/20 2xl:left-12/20"
+          className="absolute top-8/12 right-1/30"
           onEdit={handleEditTask}
           onDelete={handleDeleteTask}
           onComplete={handleCompleteTask}
-          isDisabled={task.is_complete}
+          isDisabled={isCompleted}
         />
       </div>
     </div>

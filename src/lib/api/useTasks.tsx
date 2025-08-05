@@ -11,7 +11,7 @@ export type Task = {
   title: string;
   description: string;
   is_complete: boolean;
-  type:number;
+  type: number;
 };
 
 export function useTasks() {
@@ -19,7 +19,7 @@ export function useTasks() {
 }
 
 const addTask = async (task: Task) => {
-  console.log("::::: addTask")
+  console.log("::::: addTask");
   const res = await fetch("api/tasks", {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -28,7 +28,21 @@ const addTask = async (task: Task) => {
   if (!res.ok) throw new Error("failed to add task");
   return res.json;
 };
+
+const deleteTask = async (taskId: number) => {
+  console.log("::::: deleteTask");
+  const res = await fetch("api/tasks", {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ taskId }),
+  });
+};
+
+export function useDeleteTask() {
+  return useMutation({ mutationFn: deleteTask });
+}
+
 export function useAddTask() {
-  console.log("::::: useAddTask")
+  console.log("::::: useAddTask");
   return useMutation({ mutationFn: addTask });
 }

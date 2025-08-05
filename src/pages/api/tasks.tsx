@@ -26,6 +26,7 @@ export default async function handler(
         title: task.title,
         description: task.description,
         is_complete: task.is_complete,
+        type: task.type,
       },
     ]);
     if (error) {
@@ -33,6 +34,13 @@ export default async function handler(
       return res.status(500).json({ error: error.message });
     }
     return res.status(201);
+  } else if (req.method === "DELETE") {
+    console.log("::::: entro al backend con metodo DELETE");
+    const { taskId } = req.body;
+    console.log("::::: taskId: ",taskId)
+    const response = await supabase.from("tasks").delete().eq("id", taskId);
+    console.log("::::: delete response: ", response);
+    return response;
   }
   return res.status(405).json({ error: "Method not allowed" });
 }
