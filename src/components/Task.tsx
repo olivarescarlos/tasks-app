@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TaskButtons from "./TaskButtons";
-import type { Task } from "@/lib/api/useTasks";
+import type { task } from "@/lib/api/useTasks";
 
 export default function Task({
   key,
@@ -11,7 +11,7 @@ export default function Task({
   handleDragEnd,
 }: {
   key: number;
-  task: Task;
+  task: task;
   onDelete: (id: number) => void;
   handleDragStart: (index: number) => void;
   handleDragEnter: (index: number) => void;

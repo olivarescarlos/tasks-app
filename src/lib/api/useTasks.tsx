@@ -6,7 +6,7 @@ const fetchTasks = async () => {
   return res.json();
 };
 
-export type Task = {
+export type task = {
   id: number;
   title: string;
   description: string;
@@ -15,11 +15,11 @@ export type Task = {
 };
 
 export function useTasks() {
-  return useQuery<Task[]>({ queryKey: ["tasks"], queryFn: fetchTasks });
+  return useQuery<task[]>({ queryKey: ["tasks"], queryFn: fetchTasks });
 }
 
-const addTask = async (task: Task) => {
-  console.log("::::: addTask");
+const addTask = async (task: task) => {
+  /* console.log("::::: addTask"); */
   const res = await fetch("api/tasks", {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -30,7 +30,7 @@ const addTask = async (task: Task) => {
 };
 
 const deleteTask = async (taskId: number) => {
-  console.log("::::: deleteTask");
+/*   console.log("::::: deleteTask"); */
   const res = await fetch("api/tasks", {
     method: "DELETE",
     headers: { "content-type": "application/json" },
