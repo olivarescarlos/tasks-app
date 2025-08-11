@@ -37,10 +37,22 @@ export default async function handler(
   } else if (req.method === "DELETE") {
     console.log("::::: entro al backend con metodo DELETE");
     const { taskId } = req.body;
-    console.log("::::: taskId: ",taskId)
+    console.log("::::: taskId: ", taskId);
     const response = await supabase.from("tasks").delete().eq("id", taskId);
     console.log("::::: delete response: ", response);
     return response;
+  } else if (req.method === "PATCH") {
+    
+    const { task } = req.body;
+    console.log("::::: entro a patch, task: ",task)
+    const response = await supabase
+      .from("tasks")
+      .update({
+        title: task.title,
+        description: task.description,
+        is_complete: task.is_complete,
+        type:task.type
+      }).eq("id",task.id);
   }
   return res.status(405).json({ error: "Method not allowed" });
 }

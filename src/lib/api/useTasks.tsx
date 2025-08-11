@@ -30,11 +30,18 @@ const addTask = async (task: task) => {
 };
 
 const deleteTask = async (taskId: number) => {
-/*   console.log("::::: deleteTask"); */
   const res = await fetch("api/tasks", {
     method: "DELETE",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ taskId }),
+  });
+};
+
+const editTask = async (task: task) => {
+  const res = await fetch("api/tasks", {
+    method: "PATCH",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ task }),
   });
 };
 
@@ -43,6 +50,9 @@ export function useDeleteTask() {
 }
 
 export function useAddTask() {
-  console.log("::::: useAddTask");
   return useMutation({ mutationFn: addTask });
+}
+
+export function useEditTask() {
+  return useMutation({ mutationFn: editTask });
 }

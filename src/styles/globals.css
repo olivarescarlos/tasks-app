@@ -16,6 +16,8 @@ body {
 
 @theme {
   --color-button: #cedcca;
+  --color-button-shade:#a4b0a1;
   --color-vibe-green: #38a594;
   --color-background: #e1e5e5;
+  --color-vibe-green-shade: #2c8476;
 }

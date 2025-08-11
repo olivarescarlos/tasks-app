@@ -20,7 +20,7 @@ export default function Button({
     <Tooltip text={tooltip} position={tooltipPosition}>
       <button
         className={`rounded-md px-2 content-wrap ${
-          disabled ? "bg-gray-700" : "bg-button"
+          disabled ? "bg-gray-700" : "bg-button hover:bg-button-shade"
         }`}
         onClick={onClick}
         disabled={disabled}
