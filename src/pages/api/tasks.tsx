@@ -13,6 +13,7 @@ export default async function handler(
   res: NextApiResponse<Task[] | { error: string }>
 ) {
   if (req.method === "GET") {
+    //await new Promise(r => setTimeout(r, 10000));
     const { data, error } = await supabase.from("tasks").select("*");
     await supabase.from("tasks").insert;
     if (error) return res.status(500).json({ error: error.message });

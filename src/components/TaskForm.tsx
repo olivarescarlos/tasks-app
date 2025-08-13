@@ -6,6 +6,7 @@ export default function TaskForm({
   taskDescription,
   taskType,
   taskId,
+  mode,
   onChangeLabel,
   onChangeDescription,
   onChangeCategory,
@@ -16,6 +17,7 @@ export default function TaskForm({
   taskDescription?: string;
   taskType?: number;
   taskId?:number;
+  mode?:"New" | "Edit"
   onChangeLabel?: (label: string) => void;
   onChangeDescription?: (description: string) => void;
   onChangeCategory?: (category: number) => void;
@@ -56,7 +58,9 @@ export default function TaskForm({
     });
   }
   return (
-    <div className="rounded-md bg-vibe-green hover:bg-vibe-green-shade m-2 p-2">
+    <div className="rounded-md bg-vibe-green hover:bg-vibe-green-shade p-2">
+      {mode === "Edit" ? <div className="font-semibold mb-2">Edit Task</div> : ""}
+      {mode === "New" ? <div className="font-semibold mb-2">New Task</div> : ""}
       <div className="flex justify-between rounded-md">
         <label className="m-2 p-2 font-semibold">Titulo:</label>
         <input

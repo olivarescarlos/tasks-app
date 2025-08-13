@@ -7,7 +7,8 @@ export default function Button({
   icon: Icon,
   disabled,
   tooltip,
-  tooltipPosition
+  tooltipPosition,
+  className,
 }: {
   onClick: () => void;
   label?: string;
@@ -15,13 +16,14 @@ export default function Button({
   disabled?: boolean;
   tooltip: string;
   tooltipPosition?:"top" | "bottom" | "left" | "right"
+  className?:string
 }) {
   return (
     <Tooltip text={tooltip} position={tooltipPosition}>
       <button
         className={`rounded-md px-2 content-wrap ${
           disabled ? "bg-gray-700" : "bg-button hover:bg-button-shade"
-        }`}
+        } ${className}`}
         onClick={onClick}
         disabled={disabled}
       >

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import TaskForm from "./TaskForm";
 import { task } from "@/lib/api/useTasks";
+import Modal from "./Modal";
+import CustomButton from "./CustomButton";
+import { FaPlus } from "react-icons/fa";
 export default function NewTask({
   onAddTask,
 }: {
@@ -16,7 +19,7 @@ export default function NewTask({
     setTaskLabel("");
     setTaskDescription("");
   }
-  function handleSave(task:task) {
+  function handleSave(task: task) {
     setIsAddTaskOpen((p) => !p);
     onAddTask(task.title, task.description, task.type);
     setTaskLabel("");
@@ -41,24 +44,30 @@ export default function NewTask({
 
   return (
     <>
-      {isAddTaskOpen ? (
-        <div>
-          <TaskForm
-            onCancel={handleCancel}
-            onSave={handleSave}
-            onChangeDescription={handleChangeDescription}
-            onChangeLabel={handleChange}
-            onChangeCategory={handleChangeCategory}
-          />
-        </div>
-      ) : (
-        <button
-          className="text-left m-2 p-4 bg-vibe-green rounded-md"
-          onClick={handleOpen}
-        >
-          Add task
-        </button>
-      )}
+      <div>
+        {isAddTaskOpen ? (
+          <Modal onClose={handleCancel}>
+            <TaskForm
+              onCancel={handleCancel}
+              onSave={handleSave}
+              onChangeDescription={handleChangeDescription}
+              onChangeLabel={handleChange}
+              onChangeCategory={handleChangeCategory}
+              mode="New"
+            />
+          </Modal>
+        ) : (
+          
+          <CustomButton onClick={handleOpen} icon={FaPlus} tooltip="Add task" label="Add task" className="p-2 font-semibold text-2xl"/>
+        )}
+      </div>
     </>
   );
 }
+
+{/* <button
+            className="text-left m-2 p-4 bg-vibe-green rounded-md"
+            onClick={handleOpen}
+          >
+            Add task
+          </button> */}

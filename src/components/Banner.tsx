@@ -3,9 +3,11 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function Banner({
   title,
+  className,
   onClickButton,
 }: {
   title: string;
+  className?: string;
   onClickButton: () => void;
 }) {
   const [isShow, setIsShow] = useState(true);
@@ -15,18 +17,23 @@ export default function Banner({
   }
 
   return (
-    <div className="flex m-2 rounded-md h-f bg-vibe-green p-2 text-2xl font-semibold justify-between hover:bg-vibe-green-shade">
+    <div
+      className={`flex m-2 rounded-md h-f p-2 text-2xl font-semibold justify-between ${className}`}
+    >
       {title}
-      <button className="rounded-md bg-button hover:bg-button-shade p-2" onClick={handkeClick}>
+      <button
+        className="rounded-md bg-button hover:bg-button-shade p-2"
+        onClick={handkeClick}
+      >
         {isShow ? (
-              <span className="flex flex-row gap-2 items-center">
-                Hide <FaAngleUp className="align-bottom"/>
-              </span>
-            ) : (
-              <span className="flex flex-row gap-2 items-center">
-                Show <FaAngleDown className="align-bottom"/>
-              </span>
-            )}
+          <span className="flex flex-row gap-2 items-center">
+            Hide <FaAngleUp className="align-bottom" />
+          </span>
+        ) : (
+          <span className="flex flex-row gap-2 items-center">
+            Show <FaAngleDown className="align-bottom" />
+          </span>
+        )}
       </button>
     </div>
   );

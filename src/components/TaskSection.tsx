@@ -7,9 +7,11 @@ import { useDeleteTask } from "@/lib/api/useTasks";
 export default function TaskSection({
   tasks,
   title,
+  className
 }: {
   tasks?: task[];
   title?: string;
+  className?:string;
 }) {
   const [isShowTasks, setIsShowTasks] = useState(true);
   const [taskList, setTaskList] = useState(tasks);
@@ -21,8 +23,8 @@ export default function TaskSection({
   }, [tasks]);
 
   function deleteTask(taskId: number) {
-    setTaskList((p) => p?.filter((task) => task.id !== taskId));
     deleteTaskMutation(taskId);
+    setTaskList((p) => p?.filter((task) => task.id !== taskId));
   }
 
   function dragStart(position: number) {
@@ -47,13 +49,14 @@ export default function TaskSection({
   }
   return (
     <>
-      <Banner title={title || ""} onClickButton={handleHideSection}/>
+      <Banner title={title || ""} onClickButton={handleHideSection} className={className}/>
       {isShowTasks && (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap elements-left">
           {taskList?.map((task, index) => (
             <Task
               key={index}
               task={task}
+              className={className}
               onDelete={deleteTask}
               handleDragStart={() => dragStart(index)}
               handleDragEnter={() => dragEnter(index)}

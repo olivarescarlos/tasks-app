@@ -7,6 +7,7 @@ import Modal from "./Modal";
 export default function Task({
   key,
   task,
+  className,
   onDelete,
   handleDragStart,
   handleDragEnter,
@@ -14,6 +15,7 @@ export default function Task({
 }: {
   key: number;
   task: task;
+  className?:string;
   onDelete: (id: number) => void;
   handleDragStart: (index: number) => void;
   handleDragEnter: (index: number) => void;
@@ -23,15 +25,22 @@ export default function Task({
   const [description, setDescription] = useState(task.description || "");
   const [type, setType] = useState(task.type || 1);
   const [isCompleted, setIsCompleted] = useState(task.is_complete);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const { mutate: editTask } = useEditTask();
   const hasRepetitions = true;
   function handleEditTask() {
-    setShowModal((p) => !p);
+    setShowModalEdit((p) => !p);
   }
-  function handleDeleteTask() {
+  function handleDeleteButtonClick() {    
+    setShowModalDelete(true);
+  }
+
+  function handleDeleteTask(){
     onDelete(task.id);
+    setShowModalDelete(false);
   }
+
   function handleCompleteTask() {
     setIsCompleted(true);
     editTask({
@@ -44,11 +53,11 @@ export default function Task({
   }
 
   function onCancelEdit() {
-    setShowModal((p) => !p);
+    setShowModalEdit((p) => !p);
   }
 
   function onEdit(task: task) {
-    setShowModal((p) => !p);
+    setShowModalEdit((p) => !p);
     setLabel(task.title);
     setDescription(task.description);
     setType(task.type);
@@ -57,16 +66,16 @@ export default function Task({
 
   return (
     <div
-      className="m-2 py-2 rounded-md bg-vibe-green hover:bg-vibe-green-shade transition delay-50 duration-80 ease-in-out grid h-40 relative shadow-md shadow-gray-500 content-start hover:-translate-y-1"
+      className={`m-2 py-2 rounded-md transition delay-50 duration-80 ease-in-out grid h-40 relative shadow-md shadow-gray-500 content-start hover:-translate-y-1 ${className}`}
       draggable
       onDragStart={() => handleDragStart(key)}
       onDragEnter={() => handleDragEnter(key)}
       onDragEnd={handleDragEnd}
     >
-      {showModal && (
+      {showModalEdit ? (
         <Modal onClose={onCancelEdit}>
           <TaskForm
-            onCancel={() => setShowModal((p) => !p)}
+            onCancel={() => setShowModalEdit((p) => !p)}
             onChangeCategory={() => {}}
             onSave={onEdit}
             key={1}
@@ -74,8 +83,23 @@ export default function Task({
             taskDescription={description}
             taskType={type}
             taskId={task.id}
+            mode="Edit"
           />
         </Modal>
+      ) : (
+        ""
+      )}
+      {showModalDelete ? (
+        <Modal onClose={()=>setShowModalDelete(false)}>
+          <div className="rounded-md bg-vibe-green p-2 font-semibold">
+            <p>Confirm delete task: </p>
+            <p>{task.title}?</p>            
+            <button onClick={()=>setShowModalDelete(false)} className="bg-button hover:bg-button-shade p-2 m-2 rounded-md">cancel</button>
+            <button onClick={handleDeleteTask} className="bg-button hover:bg-button-shade p-2 m-2 rounded-md">confirm</button>
+          </div>
+        </Modal>
+      ) : (
+        ""
       )}
       <div className="flex flex-row justify-between w-full">
         <span className="text-left text-2xl ml-2 font-semibold">{label}</span>
@@ -93,7 +117,7 @@ export default function Task({
         <TaskButtons
           className="absolute top-8/12 right-1/30"
           onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
+          onDelete={handleDeleteButtonClick}
           onComplete={handleCompleteTask}
           isDisabled={isCompleted}
         />
