@@ -43,7 +43,7 @@ export default function Home() {
       {isLoading ? (
         ""
       ) : (
-        <div className="fixed bottom-20 right-20">
+        <div className="fixed bottom-5 right-5 lg:bottom-20 lg:right-20 z-20">
           <NewTask onAddTask={handleSaveTask}></NewTask>
         </div>
       )}
