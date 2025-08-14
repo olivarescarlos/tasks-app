@@ -61,7 +61,7 @@ export default function TaskForm({
     <div className="rounded-md bg-vibe-green hover:bg-vibe-green-shade p-2">
       {mode === "Edit" ? <div className="font-semibold mb-2">Edit Task</div> : ""}
       {mode === "New" ? <div className="font-semibold mb-2">New Task</div> : ""}
-      <div className="flex justify-between rounded-md">
+      <div className="flex justify-between">
         <label className="m-2 p-2 font-semibold">Titulo:</label>
         <input
           id="taskLabel"
@@ -72,7 +72,7 @@ export default function TaskForm({
         />
       </div>
       <div className="flex justify-between">
-        <label className="m-2 -p2 font-semibold">Descripción:</label>
+        <label className="m-2 p-2 font-semibold">Descripción:</label>
         <input
           id="taskDescription"
           className="m-2 p-2 rounded-md bg-white"

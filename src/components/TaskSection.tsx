@@ -48,7 +48,7 @@ export default function TaskSection({
     setIsShowTasks((p)=> !p)
   }
   return (
-    <>
+    <div className="first:mt-20 last:mt-5">
       <Banner title={title || ""} onClickButton={handleHideSection} className={className}/>
       {isShowTasks && (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap elements-left">
@@ -65,6 +65,6 @@ export default function TaskSection({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }

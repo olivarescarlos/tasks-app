@@ -18,7 +18,7 @@ export default function Banner({
 
   return (
     <div
-      className={`flex m-2 rounded-md h-f p-2 text-2xl font-semibold justify-between ${className}`}
+      className={`flex m-2 rounded-md p-2 text-2xl font-semibold justify-between ${className}`}
     >
       {title}
       <button

@@ -25,7 +25,7 @@ export default function Button({
           disabled ? "bg-gray-700" : "bg-button hover:bg-button-shade"
         } ${className}`}
         onClick={onClick}
-        disabled={disabled}
+        disabled={disabled}        
       >
         <div className={"flex flex-row gap-2 items-center"}>
           {label || ""}

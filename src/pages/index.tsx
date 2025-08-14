@@ -4,6 +4,7 @@ import { useTasks, useAddTask } from "@/lib/api/useTasks";
 import TaskSection from "@/components/TaskSection";
 import TaskSkeleton from "@/components/TaskSkeleton";
 import TaskSectionSkeleton from "@/components/TaskSectionSkeleton";
+import Header from "@/components/Header";
 
 export default function Home() {
   const message = "Hello world! :)";
@@ -27,41 +28,31 @@ export default function Home() {
 
   const completedTasks = tasks?.filter((task) => task.is_complete === true);
   const incompleteTasks = tasks?.filter((task) => task.is_complete === false);
-  console.log("::::: completedTasks: ", completedTasks);
   return (
     <>
       <div id="modal" />
-      <h1
-        className="font-sans font-semibold border-solid border rounded-md 
-      border-black p-2 text-left z-50 bg-gradient-to-r from-vibe-green to-vibe-green-shade translate-x-1"
-      >
-        {message}
-      </h1>
-      {/* <div className="fixed bottom-20 right-20 border-2 border-black bg-red-500 m-2 p-2 rounded-md">
-        floating
-      </div> */}
+      <Header/>
       {isLoading ? (
         ""
       ) : (
-        <div className="fixed bottom-5 right-5 lg:bottom-20 lg:right-20 z-20">
+        <div className="fixed bottom-5 right-5 lg:bottom-20 lg:right-20 z-10">
           <NewTask onAddTask={handleSaveTask}></NewTask>
         </div>
       )}
-
       <div>
         {isLoading ? (
-          <>
+          <div className="max-w-490 m-auto">
             <TaskSectionSkeleton />
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5 flex-wrap elements-left">
               {Array.from({ length: 10 }, (_, i) => (
                 <TaskSkeleton key={i} />
               ))}
             </div>
-          </>
+          </div>
         ) : error ? (
           <div>error</div>
         ) : (
-          <>
+          <div className="max-w-490 m-auto">
             <TaskSection
               title="Incomplete tasks"
               tasks={incompleteTasks}
@@ -72,7 +63,7 @@ export default function Home() {
               tasks={completedTasks}
               className="bg-vibe-green hover:bg-vibe-green-shade"
             />
-          </>
+          </div>
         )}
       </div>
     </>
