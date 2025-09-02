@@ -66,7 +66,7 @@ export default function Task({
 
   return (
     <div
-      className={`m-2 py-2 rounded-md transition delay-50 duration-80 ease-in-out grid h-40 relative shadow-md shadow-gray-500 content-start hover:-translate-y-1 ${className}`}
+      className={`m-2 py-2 transition delay-50 duration-80 ease-in-out grid h-40 relative border border-gray-400 shadow-gray-500 content-start hover:-translate-y-1 ${className}`}
       draggable
       onDragStart={() => handleDragStart(key)}
       onDragEnter={() => handleDragEnter(key)}

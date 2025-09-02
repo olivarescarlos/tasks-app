@@ -5,7 +5,7 @@ import TaskSection from "@/components/TaskSection";
 import TaskSkeleton from "@/components/TaskSkeleton";
 import TaskSectionSkeleton from "@/components/TaskSectionSkeleton";
 import Header from "@/components/Header";
-
+import LoadingBar from "@/components/LoadingBar";
 export default function Home() {
   const message = "Hello world! :)";
   const { data, error, isLoading } = useTasks();
@@ -56,8 +56,9 @@ export default function Home() {
             <TaskSection
               title="Incomplete tasks"
               tasks={incompleteTasks}
-              className="bg-vibe-green hover:bg-vibe-green-shade"
+              className=""
             />
+            <LoadingBar totalValue={10} currentValue={2} />
             <TaskSection
               title="Completed tasks"
               tasks={completedTasks}
